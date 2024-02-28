@@ -9,23 +9,19 @@ namespace API.Data
         {
             if(context.Field.Any()) return;
             
-            var garages = new List<Fields>
+            var field = new List<Fields>
             {
                 new Fields
                 {
                     CctSiret = "12345678901234",
-                   /* CatVehiculeId = new List<long> { 1, 2, 3 },
-                    CatVehiculeLibelle = new List<string> { "Car", "Truck", "Bike" },
-                    CatEnergieId = new List<long> { 1, 2 },
-                    CatEnergieLibelle = new List<string> { "Gasoline", "Diesel" },*/
                     CctDenomination = "Dummy Garage",
                     CctAdresse = "123 Dummy Street",
                     CctCodeCommune = "75001",
                     CodePostal = "75001",
+                    CctUrl="test",
                     CctTel = "0123456789",
-                    CctUrl = new Uri("http://www.dummy-garage.com"),
                     Region = "Île-de-France",
-                    CodeRegion = 11,
+                    CodeRegion = "11",
                     Departement = "Paris",
                     CodeDepartement = "75"
                 },
@@ -33,8 +29,8 @@ namespace API.Data
             };
             
             //We then add the product to our Data Base context
-            // context.Products.AddRange(products);
-            foreach (var fields in garages)
+            
+            foreach (var fields in field)
             {
                 context.Field.Add(fields);
             }

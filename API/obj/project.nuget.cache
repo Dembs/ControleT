@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QEqp6FWxgMJR8BOiA8s2DapfCe0MDKUkpaJo4PZEaVg1cs+juSoMSwZkxRU7gLANA0a2FES8W60FyFsWfWwr+A==",
+  "dgSpecHash": "Gz9PBylENrmM46GHKS1vQeyoGdY0o0DHA6B0rlaxTdBda1hBtgbX2uLhzl+lbokSxMn6hwxNQwfi8nLbmk/56Q==",
   "success": true,
   "projectFilePath": "/Users/demba/Desktop/Apps/controlet/API/API.csproj",
   "expectedPackageFiles": [
@@ -27,6 +27,7 @@
     "/Users/demba/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/Users/demba/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/Users/demba/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/demba/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/Users/demba/.nuget/packages/sqlitepclraw.bundle_e_sqlite3/2.1.4/sqlitepclraw.bundle_e_sqlite3.2.1.4.nupkg.sha512",
     "/Users/demba/.nuget/packages/sqlitepclraw.core/2.1.4/sqlitepclraw.core.2.1.4.nupkg.sha512",
     "/Users/demba/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.1.4/sqlitepclraw.lib.e_sqlite3.2.1.4.nupkg.sha512",

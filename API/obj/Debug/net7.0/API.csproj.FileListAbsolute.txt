@@ -67,3 +67,4 @@
 /Users/demba/Desktop/Apps/controlet/API/bin/Debug/net7.0/runtimes/win-arm64/native/e_sqlite3.dll
 /Users/demba/Desktop/Apps/controlet/API/bin/Debug/net7.0/runtimes/win-x64/native/e_sqlite3.dll
 /Users/demba/Desktop/Apps/controlet/API/bin/Debug/net7.0/runtimes/win-x86/native/e_sqlite3.dll
+/Users/demba/Desktop/Apps/controlet/API/bin/Debug/net7.0/Newtonsoft.Json.dll

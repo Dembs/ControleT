@@ -16,25 +16,10 @@ namespace API.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.15");
 
-            modelBuilder.Entity("API.Entities.Coordgeo", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Lat")
-                        .HasColumnType("REAL");
-
-                    b.Property<double>("Lon")
-                        .HasColumnType("REAL");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Coordgeo");
-                });
-
             modelBuilder.Entity("API.Entities.Fields", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CctAdresse")
@@ -61,10 +46,7 @@ namespace API.Data.Migrations
                     b.Property<string>("CodePostal")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("CodeRegion")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("CoordgeoId")
+                    b.Property<string>("CodeRegion")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Departement")
@@ -75,18 +57,57 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CoordgeoId");
-
                     b.ToTable("Field");
                 });
 
-            modelBuilder.Entity("API.Entities.Fields", b =>
+            modelBuilder.Entity("API.Entities.Record", b =>
                 {
-                    b.HasOne("API.Entities.Coordgeo", "Coordgeo")
-                        .WithMany()
-                        .HasForeignKey("CoordgeoId");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
 
-                    b.Navigation("Coordgeo");
+                    b.Property<string>("FieldsId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RootId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FieldsId");
+
+                    b.HasIndex("RootId");
+
+                    b.ToTable("Records");
+                });
+
+            modelBuilder.Entity("API.Entities.Root", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roots");
+                });
+
+            modelBuilder.Entity("API.Entities.Record", b =>
+                {
+                    b.HasOne("API.Entities.Fields", "Fields")
+                        .WithMany()
+                        .HasForeignKey("FieldsId");
+
+                    b.HasOne("API.Entities.Root", null)
+                        .WithMany("Records")
+                        .HasForeignKey("RootId");
+
+                    b.Navigation("Fields");
+                });
+
+            modelBuilder.Entity("API.Entities.Root", b =>
+                {
+                    b.Navigation("Records");
                 });
 #pragma warning restore 612, 618
         }
