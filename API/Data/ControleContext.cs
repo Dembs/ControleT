@@ -10,23 +10,13 @@ namespace API.Data
         {
             
         }
-
-        public DbSet<Fields> Field {get; set;}
         public DbSet<Record> Records {get; set;}
-        public DbSet<Root> Roots {get; set;}
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Fields>()
-                .Property(f => f.Id)
-                .ValueGeneratedOnAdd();
-
             modelBuilder.Entity<Record>()
-                .Property(f => f.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<Root>()
                 .Property(f => f.Id)
                 .ValueGeneratedOnAdd();
         }
