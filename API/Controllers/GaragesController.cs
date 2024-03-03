@@ -6,6 +6,7 @@ using API.Data;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
 {
@@ -27,16 +28,21 @@ namespace API.Controllers
         {
         using (var httpClient = new HttpClient())
         {
-        using (var response = await httpClient.GetAsync("https://data.economie.gouv.fr/api/explore/v2.0/catalog/datasets/prix-des-controles-techniques-annuaire-des-centres/records"))
+            using (var response = await httpClient.GetAsync("https://data.economie.gouv.fr/api/explore/v2.0/catalog/datasets/prix-des-controles-techniques-annuaire-des-centres/records"))
             {
             string apiResponse = await response.Content.ReadAsStringAsync();
-            Root root = JsonConvert.DeserializeObject<Root>(apiResponse);
+            JObject jObject = JObject.Parse(apiResponse);
+            IList<JToken> records = jObject["records"].Children().ToList();
 
-                    foreach (var record in root.Records)
+            IEnumerable<Record> recordsList =  new List<Record>();
+
+            //Root root = JsonConvert.DeserializeObject<Root>(apiResponse);
+
+                    foreach (JToken record in records)
                     {
-                        /*if (record?.Fields != null)*/
-                        
-                            _context.Records.Add(record);
+                        recordsList = recordsList.Append(record["record"].ToObject<Record>());
+                        _context.Records.Add((Record)records);
+
                         
                     }
 

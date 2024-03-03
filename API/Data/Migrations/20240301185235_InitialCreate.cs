@@ -23,7 +23,7 @@ namespace API.Data.Migrations
                     CctTel = table.Column<string>(type: "TEXT", nullable: true),
                     CctUrl = table.Column<string>(type: "TEXT", nullable: true),
                     Region = table.Column<string>(type: "TEXT", nullable: true),
-                    CodeRegion = table.Column<string>(type: "TEXT", nullable: true),
+                    CodeRegion = table.Column<long>(type: "INTEGER", nullable: false),
                     Departement = table.Column<string>(type: "TEXT", nullable: true),
                     CodeDepartement = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -33,23 +33,12 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roots",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roots", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Records",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    FieldsId = table.Column<string>(type: "TEXT", nullable: true),
-                    RootId = table.Column<string>(type: "TEXT", nullable: true)
+                    Size = table.Column<int>(type: "INTEGER", nullable: false),
+                    FieldsId = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,22 +48,12 @@ namespace API.Data.Migrations
                         column: x => x.FieldsId,
                         principalTable: "Field",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Records_Roots_RootId",
-                        column: x => x.RootId,
-                        principalTable: "Roots",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Records_FieldsId",
                 table: "Records",
                 column: "FieldsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Records_RootId",
-                table: "Records",
-                column: "RootId");
         }
 
         /// <inheritdoc />
@@ -85,9 +64,6 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Field");
-
-            migrationBuilder.DropTable(
-                name: "Roots");
         }
     }
 }

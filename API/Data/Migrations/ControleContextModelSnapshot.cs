@@ -16,10 +16,9 @@ namespace API.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.15");
 
-            modelBuilder.Entity("API.Entities.Fields", b =>
+            modelBuilder.Entity("API.Entities.Field", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CctAdresse")
@@ -46,8 +45,8 @@ namespace API.Data.Migrations
                     b.Property<string>("CodePostal")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CodeRegion")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("CodeRegion")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Departement")
                         .HasColumnType("TEXT");
@@ -69,45 +68,23 @@ namespace API.Data.Migrations
                     b.Property<string>("FieldsId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("RootId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Size")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FieldsId");
 
-                    b.HasIndex("RootId");
-
                     b.ToTable("Records");
-                });
-
-            modelBuilder.Entity("API.Entities.Root", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roots");
                 });
 
             modelBuilder.Entity("API.Entities.Record", b =>
                 {
-                    b.HasOne("API.Entities.Fields", "Fields")
+                    b.HasOne("API.Entities.Field", "Fields")
                         .WithMany()
                         .HasForeignKey("FieldsId");
 
-                    b.HasOne("API.Entities.Root", null)
-                        .WithMany("Records")
-                        .HasForeignKey("RootId");
-
                     b.Navigation("Fields");
-                });
-
-            modelBuilder.Entity("API.Entities.Root", b =>
-                {
-                    b.Navigation("Records");
                 });
 #pragma warning restore 612, 618
         }
