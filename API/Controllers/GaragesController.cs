@@ -36,16 +36,21 @@ namespace API.Controllers
 
             IEnumerable<Record> recordsList =  new List<Record>();
 
-            //Root root = JsonConvert.DeserializeObject<Root>(apiResponse);
-
                     foreach (JToken record in records)
                     {
                         recordsList = recordsList.Append(record["record"].ToObject<Record>());
-                        _context.Records.Add((Record)records);
 
-                        
                     }
+                    _context.Records.Add((Record)recordsList.Select(r => r.Fields));
+                    IEnumerable<Field> fieldsList = recordsList.Select(r => r.Fields);
 
+                    foreach (var fields in fieldsList)
+                    {
+                    if (fields != null)
+                        {
+                            _context.Fields.Add(fields);
+                        }
+}
                     await _context.SaveChangesAsync();
 
             }

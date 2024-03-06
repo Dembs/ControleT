@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(ControleContext))]
-    [Migration("20240301185235_InitialCreate")]
+    [Migration("20240306172331_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,6 +22,7 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Field", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CctAdresse")
@@ -59,7 +60,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Field");
+                    b.ToTable("Fields");
                 });
 
             modelBuilder.Entity("API.Entities.Record", b =>

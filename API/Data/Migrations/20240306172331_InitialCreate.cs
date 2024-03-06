@@ -11,7 +11,7 @@ namespace API.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Field",
+                name: "Fields",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
@@ -29,7 +29,7 @@ namespace API.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Field", x => x.Id);
+                    table.PrimaryKey("PK_Fields", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -44,9 +44,9 @@ namespace API.Data.Migrations
                 {
                     table.PrimaryKey("PK_Records", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Records_Field_FieldsId",
+                        name: "FK_Records_Fields_FieldsId",
                         column: x => x.FieldsId,
-                        principalTable: "Field",
+                        principalTable: "Fields",
                         principalColumn: "Id");
                 });
 
@@ -63,7 +63,7 @@ namespace API.Data.Migrations
                 name: "Records");
 
             migrationBuilder.DropTable(
-                name: "Field");
+                name: "Fields");
         }
     }
 }
