@@ -1,11 +1,5 @@
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
-using API.Entities;
 using API.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
@@ -26,49 +20,32 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> SeedData()
         {
-        using (var httpClient = new HttpClient())
-        {
-            var response = await httpClient.GetAsync("https://data.economie.gouv.fr/api/explore/v2.0/catalog/datasets/prix-des-controles-techniques-annuaire-des-centres/records");
-
-            string mainResponse = await response.Content.ReadAsStringAsync();
-            JObject jObjectMain = JObject.Parse(mainResponse);
-            int total = int.Parse(jObjectMain["total_count"].ToString());
-
-            _context.Fields.RemoveRange(_context.Fields);
-            for (int i =0; i <= total; i =i+100)
+            using (var httpClient = new HttpClient())
             {
-            string offset = i.ToString();
-            var response_2 =await httpClient.GetAsync("https://data.economie.gouv.fr/api/explore/v2.0/catalog/datasets/prix-des-controles-techniques-annuaire-des-centres/records?limit=100&offset="+offset+"&include_app_metas=False&include_links=False");
-            
-            string apiResponse = await response_2.Content.ReadAsStringAsync();
-            JObject jObject = JObject.Parse(apiResponse);
+                var response = await httpClient.GetAsync("https://data.economie.gouv.fr/api/explore/v2.0/catalog/datasets/prix-des-controles-techniques-annuaire-des-centres/records");
 
-            IList<JToken> records = jObject["records"].Children().ToList();
-            string pageResponse= await response_2.Content.ReadAsStringAsync();
+                string mainResponse = await response.Content.ReadAsStringAsync();
+                JObject jObjectMain = JObject.Parse(mainResponse);
+                int total = int.Parse(jObjectMain["total_count"].ToString());
 
-        //Debut fonction à part 
-            IEnumerable<Record> recordsList =  new List<Record>();
+                _context.Fields.RemoveRange(_context.Fields);
+                for (int i =0; i <= total; i =i+100)
+                {
+                    string offset = i.ToString();
+                    var responseData =await httpClient.GetAsync("https://data.economie.gouv.fr/api/explore/v2.0/catalog/datasets/prix-des-controles-techniques-annuaire-des-centres/records?limit=100&offset="+offset+"&include_app_metas=False&include_links=False");
+                    
+                    string apiResponse = await responseData.Content.ReadAsStringAsync();
+                    JObject jObject = JObject.Parse(apiResponse);
 
-                    foreach (JToken record in records)
-                    {
-                        recordsList = recordsList.Append(record["record"].ToObject<Record>());
+                    IList<JToken> records = jObject["records"].Children().ToList();
 
-                    }
-                    //_context.Records.Add((Record)recordsList.Select(r => r.Fields));
-                    IEnumerable<Field> fieldsList = recordsList.Select(r => r.Fields);
-                    foreach (var fields in fieldsList)
-                    {
-                    if (fields != null)
-                        {
-                            _context.Fields.Add(fields);
-                        }
-                    }
-                    await _context.SaveChangesAsync();
+                    RecuperationRecordByLimit recuperation = new RecuperationRecordByLimit(_context);
+
+                    await recuperation.RecuperateRecords(new JArray(records));
+                }
             }
-            }
-        //fin fonctionà part 
-        
-    return Ok();
+
+            return Ok();
         }
     }
 }
