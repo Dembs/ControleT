@@ -25,14 +25,14 @@ public class Field
         public string CctTel { get; set; }
 
         [JsonProperty("cct_url")]
-        public Uri CctUrl { get; set; }
+        public string CctUrl { get; set; }
 
         [JsonProperty("region")]
         public string Region { get; set; }
 
         [JsonProperty("code_region")]
 
-        public long CodeRegion { get; set; }
+        public string CodeRegion { get; set; }
 
         [JsonProperty("departement")]
         public string Departement { get; set; }

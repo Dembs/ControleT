@@ -46,8 +46,8 @@ namespace API.Data.Migrations
                     b.Property<string>("CodePostal")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("CodeRegion")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("CodeRegion")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Departement")
                         .HasColumnType("TEXT");
