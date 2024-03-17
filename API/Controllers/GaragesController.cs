@@ -1,5 +1,7 @@
 using API.Data;
+using API.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
 namespace API.Controllers
@@ -18,6 +20,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Route("SeedData")]
         public async Task<IActionResult> SeedData()
         {
             using (var httpClient = new HttpClient())
@@ -28,7 +31,7 @@ namespace API.Controllers
                 JObject jObjectMain = JObject.Parse(mainResponse);
                 int total = int.Parse(jObjectMain["total_count"].ToString());
 
-                _context.Fields.RemoveRange(_context.Fields);
+                
                 for (int i =0; i <= total; i =i+100)
                 {
                     string offset = i.ToString();
@@ -46,6 +49,17 @@ namespace API.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("GetGarages")]
+        public async Task<ActionResult<List<Field>>> GetGarages(int pageNumber = 1, int pageSize=100)
+        {
+
+            return await _context.Fields
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
         }
     }
 }

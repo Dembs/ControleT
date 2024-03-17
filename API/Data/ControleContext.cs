@@ -6,6 +6,10 @@ namespace API.Data
 {
     public class ControleContext : DbContext 
     {
+        public ControleContext()
+        {
+        }
+
         public ControleContext(DbContextOptions options) : base(options)
         {
             
@@ -28,6 +32,8 @@ namespace API.Data
             modelBuilder.Entity<Field>()
                 .Property(f => f.Id)
                 .ValueGeneratedOnAdd();
+
+                
         }
     }
 }
