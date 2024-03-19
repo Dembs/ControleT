@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>List of Garages</title>
+</head>
+<body>
+  <script>
+
+    const button = document.createElement('button')
+    button.innerText ='Refresh DataBase'
+    button.id='dataButton'
+
+    const apiUrl = 'http://localhost:5000/api/SeedData';
+    const dataUrl = 'http://localhost:5000/api/GetGarages';
+    
+    function refreshData()
+    {
+    fetch(dataUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+   //   document.body.appendChild(button)
+  </script>
+<button id="data" onclick="refreshData()">Refresh Data</button>
+</body>
+</html>
