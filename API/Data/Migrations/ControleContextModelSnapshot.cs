@@ -18,8 +18,7 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Field", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("CctSiret")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CctAdresse")
@@ -29,9 +28,6 @@ namespace API.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CctDenomination")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CctSiret")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CctTel")
@@ -55,7 +51,7 @@ namespace API.Data.Migrations
                     b.Property<string>("Region")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("CctSiret");
 
                     b.ToTable("Fields");
                 });
@@ -63,10 +59,9 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Record", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FieldsId")
+                    b.Property<string>("FieldsCctSiret")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Size")
@@ -74,7 +69,7 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FieldsId");
+                    b.HasIndex("FieldsCctSiret");
 
                     b.ToTable("Records");
                 });
@@ -83,7 +78,7 @@ namespace API.Data.Migrations
                 {
                     b.HasOne("API.Entities.Field", "Fields")
                         .WithMany()
-                        .HasForeignKey("FieldsId");
+                        .HasForeignKey("FieldsCctSiret");
 
                     b.Navigation("Fields");
                 });

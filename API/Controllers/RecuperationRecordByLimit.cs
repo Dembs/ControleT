@@ -27,15 +27,7 @@ namespace API.Controllers
                     {
                     if (fields != null)
                         {
-                            var existingField = await _context.Fields.FindAsync(fields.CctSiret);
-                            if (existingField !=null)
-                            {
-                                _context.Entry(existingField).CurrentValues.SetValues(fields);
-                            }
-                            else
-                            {
                             _context.Fields.Add(fields);
-                            }
                         }
                     }
                     await _context.SaveChangesAsync();

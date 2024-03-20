@@ -53,12 +53,10 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetGarages")]
-        public async Task<ActionResult<List<Field>>> GetGarages(int pageNumber = 1, int pageSize=100)
+        public async Task<ActionResult<List<Field>>> GetGarages()
         {
 
             return await _context.Fields
-            .Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
             .ToListAsync();
         }
     }

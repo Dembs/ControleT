@@ -14,8 +14,7 @@ namespace API.Data.Migrations
                 name: "Fields",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    CctSiret = table.Column<string>(type: "TEXT", nullable: true),
+                    CctSiret = table.Column<string>(type: "TEXT", nullable: false),
                     CctDenomination = table.Column<string>(type: "TEXT", nullable: true),
                     CctAdresse = table.Column<string>(type: "TEXT", nullable: true),
                     CctCodeCommune = table.Column<string>(type: "TEXT", nullable: true),
@@ -29,7 +28,7 @@ namespace API.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fields", x => x.Id);
+                    table.PrimaryKey("PK_Fields", x => x.CctSiret);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,22 +37,22 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
                     Size = table.Column<int>(type: "INTEGER", nullable: false),
-                    FieldsId = table.Column<string>(type: "TEXT", nullable: true)
+                    FieldsCctSiret = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Records", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Records_Fields_FieldsId",
-                        column: x => x.FieldsId,
+                        name: "FK_Records_Fields_FieldsCctSiret",
+                        column: x => x.FieldsCctSiret,
                         principalTable: "Fields",
-                        principalColumn: "Id");
+                        principalColumn: "CctSiret");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Records_FieldsId",
+                name: "IX_Records_FieldsCctSiret",
                 table: "Records",
-                column: "FieldsId");
+                column: "FieldsCctSiret");
         }
 
         /// <inheritdoc />

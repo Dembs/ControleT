@@ -19,21 +19,5 @@ namespace API.Data
         public DbSet<Record> Records {get; set;}
         public DbSet<Field> Fields {get; set;}
 
-
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-            modelBuilder.Entity<Record>()
-                .Property(f => f.Id)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<Field>()
-                .Property(f => f.Id)
-                .ValueGeneratedOnAdd();
-
-                
-        }
     }
 }

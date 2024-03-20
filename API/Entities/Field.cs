@@ -5,16 +5,15 @@ using Newtonsoft.Json;
 
 namespace API.Entities
 {
-
 public class Field
 {
-    public string Id {get; set;}
-    [JsonProperty("cct_siret")]
-    public string CctSiret { get; set; }
-    [JsonProperty("cct_denomination")]
-    public string CctDenomination { get; set; }
-    [JsonProperty("cct_adresse")]
-    public string CctAdresse { get; set; }
+        [Key]
+        [JsonProperty("cct_siret")]
+        public string CctSiret { get; set; }
+        [JsonProperty("cct_denomination")]
+        public string CctDenomination { get; set; }
+        [JsonProperty("cct_adresse")]
+        public string CctAdresse { get; set; }
        [JsonProperty("cct_code_commune")]
         public string CctCodeCommune { get; set; }
 
@@ -42,11 +41,5 @@ public class Field
     }
 }
 
-
-/*public class Root
-{
-    public string Id { get; set; }
-    public List<Record> Records { get; set; }
-}*/
 
 
