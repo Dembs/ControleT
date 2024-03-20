@@ -3,33 +3,37 @@
     <title>List of Garages</title>
 </head>
 <body>
-  <script>
+  <button id="data" onclick="refreshData()">Refresh Data</button>
+  <div id ="garage-output"></div>
 
-    const button = document.createElement('button')
-    button.innerText ='Refresh DataBase'
-    button.id='dataButton'
+  <script>
+    const button = document.createElement('button');
+    button.innerText ='Refresh DataBase';
+    button.id='dataButton';
 
     const apiUrl = 'http://localhost:5000/api/Garages/SeedData';
     const dataUrl = 'http://localhost:5000/api/Garages/GetGarages';
     
-    function refreshData()
-    {
-    fetch(dataUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    function refreshData() {
+      fetch(dataUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const outputElement = document.getElementById('garage-output');
+          const nom = data[0].cctDenomination;
+          const adresse = data[0].cctAdresse;
+          console.log(data[0]);
+          outputElement.innerHTML = `<p>Nom du garage : ${nom}</p>
+                                     <p>Adresse: ${adresse}</p>`;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
     }
-   //   document.body.appendChild(button)
   </script>
-<button id="data" onclick="refreshData()">Refresh Data</button>
 </body>
 </html>
