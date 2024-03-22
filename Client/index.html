@@ -4,12 +4,16 @@
 </head>
 <body>
   <button id="data" onclick="refreshData()">Refresh Data</button>
-  <div id ="garage-output"></div>
+    <table id ="garage-output">
+      <tr>
+        <th>Nom</th>
+        <th>Adresse</th>
+        <th>Code Postal</th>
+        <th>Ville</th>
+      </tr>
+    </table>
 
   <script>
-    const button = document.createElement('button');
-    button.innerText ='Refresh DataBase';
-    button.id='dataButton';
 
     const apiUrl = 'http://localhost:5000/api/Garages/SeedData';
     const dataUrl = 'http://localhost:5000/api/Garages/GetGarages';
@@ -24,12 +28,20 @@
         })
         .then(data => {
           const outputElement = document.getElementById('garage-output');
-          const nom = data[0].cctDenomination;
-          const adresse = data[0].cctAdresse;
-          console.log(data[0]);
-          outputElement.innerHTML = `<p>Nom du garage : ${nom}</p>
-                                     <p>Adresse: ${adresse}</p>`;
-        })
+          for (let index = 0; index < 10/*data.length*/; ++index)
+          {
+          const nom = data[index].cctDenomination;
+          const adresse = data[index].cctAdresse;
+          const CodePostal = data[index].codePostal;
+          const CodeCommune = data[index].cctCodeCommune;
+          console.log(data[index]);
+          outputElement.innerHTML += `<tr>
+                                      <td>${nom}</td>
+                                      <td>${adresse}</td>
+                                      <td>${CodePostal}</td>
+                                      <td>${CodeCommune}</td>
+                                     </tr>`;
+        }})
         .catch(error => {
           console.error('Error:', error);
         });
