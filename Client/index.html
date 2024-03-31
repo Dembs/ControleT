@@ -4,7 +4,7 @@
 </head>
 <body>
   <button id="data" onclick="init()">Refresh Data</button>
-
+  <button id="data" onclick="api()">Refresh API</button>
     <table id ="table-output">
       <thead>
         <tr>
@@ -21,6 +21,9 @@
 
     <button id="prevButton">Previous</button> 
     <button id="nextButton">Next</button> 
+
+</body>
+</html>
 <script>
 
   document.addEventListener('DOMContentLoaded', init, false);
@@ -28,6 +31,13 @@
   let sortAsc = false;
   const pageSize = 20;
   let curPage = 1;
+
+  async function api(){
+    let resp_Api = await fetch('http://localhost:5000/api/Garages/SeedData');
+    data_Api = await resp_Api.json();
+    console.log(data)
+  }
+
   async function init() {
     
     // Select the table tbody
@@ -86,5 +96,32 @@ function nextPage() {
   renderTable();
 }
 </script>
-</body>
-</html>
+<style>
+  td, th {
+    padding: 10px;
+  }
+
+  th {
+    cursor : pointer;
+  }
+
+  #table-output {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  #table-output td, #table-output th {
+    border: 1px solid #ddd;
+  }
+  #table-output tbody {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  button {
+    text-align: center; 
+    width: 110px;  
+    height: 50px;  
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer; 
+  }
+</style>
